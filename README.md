@@ -98,21 +98,8 @@ The following models below work, however they are likely to cause issues or conf
 	- Tested, q4 Qwen 3.8 27b model retained 16% better context retrieval, 18% less tool call error rate, and better goal tracking. 
 
 ### Known Model Issues
-Some models during testing have produced unfixable errors that make it so they are unable to do most things in the app properly with the current architecture. A very strong example as of now with current app architecture is models with sliding context windows, since their main "vision" is focused on the last 1024 for an example, they have a hard time adhering to instructions or system prompts over long contexts, and typically have a higher likely hood of of getting into thinking loops or getting lost during longer tasks over multiple tool calls. Below is a list of models tested that are not recommended for use.
 
-* **Gemma 4 31b QAT**
-* **Gemma 4 26b a4b QAT**
-* **Gemma 4 12b QAT**
-* **Gemma 4 12b**
-* **Gemma 4 31b**
-* **Gemma 4 26b a4b**
-* **Gemma 4 E4b**
-* **Gemma 4 E2b**
-* **Gemma 3n e4b**
-* **Gemma 3 1b**
-* **Gemma 3 4b**
-* **Gemma 3 12b**
-* **Gemma 3 27b**
+FIXED ANY KNOWN MODEL ISSUES AS OF v0.6, GEMMA 4 AND GEMMA 3 IS WORKING NOW (if you decided to use this model family, use the ones with fixed chat templates.)
 
 ## How to start a local server for LM Studio
 
