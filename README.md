@@ -72,10 +72,10 @@ Recommendations based on vram available are below in the table. These models are
 
 | VRAM | Top Model | 2nd Best | 3rd Best |
 | :---- | :---- | :---- | :---- |
-| Below 6gb | unsloth/NVIDIA-Nemotron-3-Nano-4B-GGUF | unsloth/Qwen3.5-4B-GGUF | unsloth/llama-3.2-3b-instruct-gguf |
-| 6-8gb | unsloth/Qwen3.5-9B-GGUF | Aldaris/DeepSeek-R1-Distill-Qwen-7B-IQ4_NL-GGUF | unsloth/NVIDIA-Nemotron-3-Nano-4B-GGUF |
+| Below 6gb | unsloth/NVIDIA-Nemotron-3-Nano-4B-GGUF | google/gemma-4-e2b | unsloth/Qwen3.5-4B-GGUF |
+| 6-8gb | unsloth/Qwen3.5-9B-GGUF | google/gemma-4-e4b | unsloth/NVIDIA-Nemotron-3-Nano-4B-GGUF |
 | 8-12gb | zai-org/glm-4.6vflash | deepseek/deepseek-r1-0528-qwen3-8b | unsloth/Qwen3.5-9B-GGUF |
-| 12-16gb | zai-org/glm-4.6vflash | unsloth/Qwen3.5-9B-GGUF | unsloth/Qwen2.5-Coder-7B-Instruct-GGUF |
+| 12-16gb | google/gemma-4 | unsloth/Qwen3.5-9B-GGUF | unsloth/Qwen2.5-Coder-7B-Instruct-GGUF |
 | 16-24gb | unsloth/Qwen3.8-27B-GGUF | meta/muse-glimmer | jorge-erdb/GLM-4.7-Flash-D-IQ4NL-GGUF |
 | 24-48gb | unsloth/NVIDIA-Nemotron-3-Nano-Omni-30B-A3B-Reasoning-GGUF | meta/muse-glimmer | qwen/qwen3.6-35b-a3b |
 | 48gb+ | lmstudio-community/llama-3-groq-70b-tool-use-gguf | meta/llama-3.3-70b | qwen/qwen3.8-27b |
