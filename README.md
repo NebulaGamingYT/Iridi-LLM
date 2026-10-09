@@ -1,3 +1,14 @@
+# Planned Features Board
+The number next to the list determines the priority of the feature
+
+- [ ] Attempt to work around sliding context windows **3** 
+- [ ] App color themes **1**
+- [ ] Custom Models built for the app **2** 
+- [ ] Full Public Release **4**
+- [x] Chat Compacting
+- [x] Customizable Model Rules
+
+
 #  **App Usage & Navigation**
 
 ## Model Settings
@@ -57,17 +68,51 @@ Below are recommendations on how to use the app or fixes to common errors. They 
 
 It is recommended to use a model that does not have a sliding context window (Example: Gemma 4 model series), as it may cause issues with tool calling and context degradation during replies.
 
-Recommendations based on vram available are below in the table. These models are recommended to be hosted using lm studio, hosting instructions are below. (At 32k-64k context) All models tested quantized to q4.
+Recommendations based on vram available are below in the table. These models are recommended to be hosted using lm studio, hosting instructions are below. (At 32k-64k context) All models tested quantized to q4/q8.
 
 | VRAM | Top Model | 2nd Best | 3rd Best |
 | :---- | :---- | :---- | :---- |
-| Below 6gb | prism-ml/bonsai-27b | nvidia/nemotron-3-nano-4b | unsloth/llama-3.2-3b-instruct-gguf |
-| 6-8gb | prism-ml/bonsai-27b | qwen/qwen3.5-9b |  |
-| 8-12gb | zai-org/glm-4.6vflash | deepseek/deepseek-r1-0528-qwen3-8b | qwen/qwen3.5-9b |
-| 12-16gb | sdkyuan/qwen3.8-27b-qat-q2\_0-gguf | prism-ml/bonsai-27b | qwen/qwen3.5-9b |
-| 16-24gb | qwen/qwen3.8-27b | openai/gpt-oss-20b | meta/muse-glimmer |
-| 24-48gb | qwen/qwen3.8-27b | meta/muse-glimmer | qwen/qwen3.6-35b-a3b |
+| Below 6gb | unsloth/NVIDIA-Nemotron-3-Nano-4B-GGUF | unsloth/Qwen3.5-4B-GGUF | unsloth/llama-3.2-3b-instruct-gguf |
+| 6-8gb | unsloth/Qwen3.5-9B-GGUF | Aldaris/DeepSeek-R1-Distill-Qwen-7B-IQ4_NL-GGUF | unsloth/NVIDIA-Nemotron-3-Nano-4B-GGUF |
+| 8-12gb | zai-org/glm-4.6vflash | deepseek/deepseek-r1-0528-qwen3-8b | unsloth/Qwen3.5-9B-GGUF |
+| 12-16gb | zai-org/glm-4.6vflash | unsloth/Qwen3.5-9B-GGUF | unsloth/Qwen2.5-Coder-7B-Instruct-GGUF |
+| 16-24gb | unsloth/Qwen3.8-27B-GGUF | meta/muse-glimmer | jorge-erdb/GLM-4.7-Flash-D-IQ4NL-GGUF |
+| 24-48gb | unsloth/NVIDIA-Nemotron-3-Nano-Omni-30B-A3B-Reasoning-GGUF | meta/muse-glimmer | qwen/qwen3.6-35b-a3b |
 | 48gb+ | lmstudio-community/llama-3-groq-70b-tool-use-gguf | meta/llama-3.3-70b | qwen/qwen3.8-27b |
+
+The following models are intended for use in IQ4_NL (or IQ4_NL_XL) quantization, as this is tested to improve performance in the app. The only outlier in this list is ***unsloth/Qwen3.8-27B-GGUF***, ran at UD_IQ4_XS quantization instead.
+
+* ***unsloth/NVIDIA-Nemotron-3-Nano-Omni-30B-A3B-Reasoning-GGUF*** 
+* ***jorge-erdb/GLM-4.7-Flash-D-IQ4NL-GGU*** 
+* ***unsloth/Qwen3.5-4B-GGUF***
+* ***Aldaris/DeepSeek-R1-Distill-Qwen-7B-IQ4_NL-GGUF***
+*  ***unsloth/Qwen3.5-9B-GGUF***
+*  ***unsloth/Qwen3.8-27B-GGUF***
+
+### Potential Model Issues
+The following models below work, however they are likely to cause issues or conflicts with the harness. One example would be ***prism-ml/bonsai-27b***, even though it achieves similar results to the original fp16 model, in testing it does considerably worse compared even to models smaller than it (at q4/q8) on tasks that are open ended, require long context retrieval, memory recollection, or non verifiable coding tasks. For uses that are verifiable or simpler tasks, QAT models quantized to low bit precision (q3, q2, q1, ect.) still work with relative performance to their fp16 counterparts. Here is the list of models that were tested and fall under this category.
+
+* **prism-ml/bonsai-27b**
+	- Tested, q8 Qwen 3.6 27b model retained 27% better long context retrieval with 14% less tool call error rate.
+* **sdkyuan/qwen3.8-27B-qat-q2_0-gguf**
+	- Tested, q4 Qwen 3.8 27b model retained 16% better context retrieval, 18% less tool call error rate, and better goal tracking. 
+
+### Known Model Issues
+Some models during testing have produced unfixable errors that make it so they are unable to do most things in the app properly with the current architecture. A very strong example as of now with current app architecture is models with sliding context windows, since their main "vision" is focused on the last 1024 for an example, they have a hard time adhering to instructions or system prompts over long contexts, and typically have a higher likely hood of of getting into thinking loops or getting lost during longer tasks over multiple tool calls. Below is a list of models tested that are not recommended for use.
+
+* **Gemma 4 31b QAT**
+* **Gemma 4 26b a4b QAT**
+* **Gemma 4 12b QAT**
+* **Gemma 4 12b**
+* **Gemma 4 31b**
+* **Gemma 4 26b a4b**
+* **Gemma 4 E4b**
+* **Gemma 4 E2b**
+* **Gemma 3n e4b**
+* **Gemma 3 1b**
+* **Gemma 3 4b**
+* **Gemma 3 12b**
+* **Gemma 3 27b**
 
 ## How to start a local server for LM Studio
 
@@ -102,7 +147,7 @@ V Cache Quantization Type: On, Q4\_0
 If all settings do not appear, click Show Advanced Settings in the bottom left.
 
 7\) Click the Load Model button or press ctrl \+ enter:  
-![][image17](https://file.garden/aZ0Ejl312E5LWDAV/iridi-llm/Loadmodelsettingspannel.png)
+![image17](https://file.garden/aZ0Ejl312E5LWDAV/iridi-llm/Loadmodelsettingspannel.png)
 
 8\) Wait for the model to finish loading and the LM Studio server is finished, To connect it to the app, you may follow the previous guide in the **Providers** section above.
 
